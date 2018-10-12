@@ -1,0 +1,75 @@
+--- linux-4.18.12/kernel/sys.c	2018-10-04 07:59:28.000000000 +0800
++++ /usr/src/linux-4.18.12/kernel/sys.c	2018-10-08 15:39:18.536292507 +0800
+@@ -5,6 +5,7 @@
+  *  Copyright (C) 1991, 1992  Linus Torvalds
+  */
+ 
++#include <linux/linkage.h>
+ #include <linux/export.h>
+ #include <linux/mm.h>
+ #include <linux/utsname.h>
+@@ -2642,3 +2643,64 @@ COMPAT_SYSCALL_DEFINE1(sysinfo, struct c
+ 	return 0;
+ }
+ #endif /* CONFIG_COMPAT */
++
++asmlinkage int sys_test_one(int num)
++{
++	printk("This is Syscall Test One.\n");
++	printk("Your input num is %d.\n", num);
++	return 1;
++}
++
++asmlinkage int sys_test_two(char *buf)
++{
++         printk("This is Syscall Test Two.\n");
++         printk("Your input buf is %s.\n", buf);
++         return 1;
++}
++
++asmlinkage int sys_test_three(int num)
++{
++	printk(KERN_EMERG"This is Syscall Test Three.\n");
++	printk(KERN_EMERG"Your input num is %d.\n", num);
++	return 1;
++}
++
++asmlinkage int sys_test_four(char *buf)
++{
++	printk(KERN_EMERG"This is Syscall Test Three.\n");
++	printk(KERN_EMERG"Your input buf is %s.\n", buf);
++	return 1;
++}
++
++asmlinkage int sys_test_five(int num)
++{
++	switch(num) {
++		case 0:
++			printk(KERN_EMERG"This is Syscall Test Five. 0 KERN_EMERG\n");
++			break;
++		case 1:
++			printk(KERN_EMERG"This is Syscall Test Five. 1 KERN_ALERT\n");
++			break;
++		case 2:
++			printk(KERN_EMERG"This is Syscall Test Five. 2 KERN_CRIT\n");
++			break;
++		case 3:
++			printk(KERN_EMERG"This is Syscall Test Five. 3 KERN_ERR\n");
++			break;
++		case 4:
++			printk(KERN_EMERG"This is Syscall Test Five. 4 KERN_WARNING\n");
++			break;
++		case 5:
++			printk(KERN_EMERG"This is Syscall Test Five. 5 KERN_NOTICE\n");
++			break;
++		case 6:
++			printk(KERN_EMERG"This is Syscall Test Five. 6 KERN_INFO\n");
++			break;
++		case 7:
++			printk(KERN_EMERG"This is Syscall Test Five. 7 KERN_DEBUG\n");
++			break;
++		default:
++			printk("err num %d. the num should be between 0~7\n", num);
++	}
++	return 1;
++}

@@ -1,0 +1,14 @@
+--- linux-4.18.12/include/linux/syscalls.h	2018-10-04 07:59:28.000000000 +0800
++++ /usr/src/linux-4.18.12/include/linux/syscalls.h	2018-10-08 15:04:20.324320442 +0800
+@@ -638,6 +638,11 @@ asmlinkage long sys_rt_sigtimedwait(cons
+ asmlinkage long sys_rt_sigqueueinfo(pid_t pid, int sig, siginfo_t __user *uinfo);
+ 
+ /* kernel/sys.c */
++asmlinkage int  sys_test_one(int num);
++asmlinkage int  sys_test_two(char *buf);
++asmlinkage int  sys_test_three(int num);
++asmlinkage int  sys_test_four(char *buf);
++asmlinkage int  sys_test_five(int num);
+ asmlinkage long sys_setpriority(int which, int who, int niceval);
+ asmlinkage long sys_getpriority(int which, int who);
+ asmlinkage long sys_reboot(int magic1, int magic2, unsigned int cmd,

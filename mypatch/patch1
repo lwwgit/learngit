@@ -1,0 +1,14 @@
+--- linux-4.18.12/arch/x86/entry/syscalls/syscall_64.tbl	2018-10-04 07:59:28.000000000 +0800
++++ /usr/src/linux-4.18.12/arch/x86/entry/syscalls/syscall_64.tbl	2018-10-08 14:59:34.868324243 +0800
+@@ -343,6 +343,11 @@
+ 332	common	statx			__x64_sys_statx
+ 333	common	io_pgetevents		__x64_sys_io_pgetevents
+ 334	common	rseq			__x64_sys_rseq
++335     common  test_one                sys_test_one
++336     common  test_two                sys_test_two
++337     common  test_three              sys_test_three
++338     common  test_four               sys_test_four
++339     common  test_five               sys_test_five
+ 
+ #
+ # x32-specific system call numbers start at 512 to avoid cache impact
